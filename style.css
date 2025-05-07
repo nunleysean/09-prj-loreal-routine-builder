@@ -7,7 +7,7 @@
 
 /* General styling for L'Oréal aesthetics */
 body {
-  background-color: #fff;
+  background-color: #ff003b;
   color: #000;
   font-family: "Montserrat", Arial, sans-serif;
   line-height: 1.6;
@@ -15,9 +15,25 @@ body {
   justify-content: center;
 }
 
+/* Adjust child elements of page-wrapper for better fit */
 .page-wrapper {
   width: 90%;
-  max-width: 900px;
+  background-color: #fff;
+  max-width: 1200px; /* Increased max-width for better layout */
+  margin: 0 auto; /* Center the content */
+  padding: 20px; /* Add padding for spacing */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better aesthetics */
+}
+
+/* Ensure child elements fit well */
+.site-header,
+.hero,
+.search-section,
+.products-grid,
+.selected-products,
+.chatbox,
+.site-footer {
+  margin-bottom: 20px; /* Add spacing between sections */
 }
 
 /* Header styling */
@@ -79,7 +95,7 @@ body {
 /* Chatbox styling */
 .chatbox {
   margin: 40px 0;
-  border: 2px solid #000;
+  border: 2px solid #e3a535;
   border-radius: 8px;
   padding: 20px;
   background-color: #fff;
@@ -110,7 +126,7 @@ body {
 /* Chat messages styled like text messages */
 .chat-message {
   max-width: 70%;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 15px;
   margin-bottom: 10px;
   font-size: 16px;
@@ -119,16 +135,16 @@ body {
 
 /* User messages aligned to the right */
 .user-message {
-  background-color: #d1e7dd;
-  color: #0f5132;
+  background-color: #000;
+  color: #e3a535;
   align-self: flex-end;
   text-align: right;
 }
 
 /* Assistant messages aligned to the left */
 .assistant-message {
-  background-color: #f8d7da;
-  color: #842029;
+  background-color: #ff003b;
+  color: #fff;
   align-self: flex-start;
   text-align: left;
 }
@@ -216,7 +232,7 @@ body {
 .products-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 20px; /* Add spacing between product cards */
   margin: 30px 0;
 }
 
@@ -273,11 +289,11 @@ body {
 
 /* Selected products styling */
 .selected-products {
-  margin: 40px 0;
   padding: 20px;
-  border: 2px solid #e3a535;
+  border: 1px solid #e3a535;
   border-radius: 8px;
   background-color: #fff;
+  margin: 40px 0;
 }
 
 .selected-products h2 {
@@ -323,7 +339,7 @@ body {
   font-size: 18px;
   font-weight: 700;
   color: #fff;
-  background-color: #ff003b;
+  background-color: #000;
   border: none;
   border-radius: 8px;
   cursor: pointer;
