@@ -61,8 +61,79 @@ categoryFilter.addEventListener("change", async (e) => {
 /* Chat form submission handler - placeholder for OpenAI integration */
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
+});
 
-  chatWindow.innerHTML = "Connect to the OpenAI API for a response!";
+// Store the conversation history
+let conversationHistory = [
+  {
+    role: "system",
+    content:
+      "You are a helpful assistant answering questions about beauty routines and products.",
+  },
+];
+
+// Add event listener for chat form submission
+chatForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); // Prevent the form from refreshing the page
+
+  const userInput = document.getElementById("userInput").value.trim();
+
+  if (!userInput) {
+    return; // Do nothing if the input is empty
+  }
+
+  // Add user's message to the chat window
+  chatWindow.innerHTML += `<div class="chat-message user-message">${userInput}</div>`;
+
+  // Add user's message to the conversation history
+  conversationHistory.push({
+    role: "user",
+    content: userInput,
+  });
+
+  // Clear the input field
+  document.getElementById("userInput").value = "";
+
+  // Show a loading message
+  chatWindow.innerHTML +=
+    '<div class="chat-message assistant-message">Thinking...</div>';
+
+  try {
+    // Fetch response from OpenAI API
+    const response = await fetch("https://travelbot.nunley-sean.workers.dev/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: conversationHistory,
+      }),
+    });
+
+    const data = await response.json();
+
+    // Get the assistant's response
+    const assistantResponse = data.choices[0].message.content;
+
+    // Add assistant's response to the chat window
+    chatWindow.innerHTML += `<div class="chat-message assistant-message">${marked.parse(
+      assistantResponse
+    )}</div>`;
+
+    // Add assistant's response to the conversation history
+    conversationHistory.push({
+      role: "assistant",
+      content: assistantResponse,
+    });
+  } catch (error) {
+    console.error("Error fetching response:", error);
+    chatWindow.innerHTML +=
+      '<div class="chat-message assistant-message">Sorry, something went wrong. Please try again later.</div>';
+  }
+
+  // Scroll to the bottom of the chat window
+  chatWindow.scrollTop = chatWindow.scrollHeight;
 });
 
 // Wait for the DOM to load
@@ -141,5 +212,75 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch((error) => console.error("Error fetching products:", error));
+  });
+
+  const generateRoutineButton = document.getElementById("generateRoutine");
+
+  // Function to fetch routine from OpenAI API
+  async function fetchRoutine(selectedProducts) {
+    try {
+      const response = await fetch(
+        "https://travelbot.nunley-sean.workers.dev/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "gpt-4o",
+            messages: [
+              {
+                role: "system",
+                content:
+                  "You are a beauty advisor creating routines using the provided products.",
+              },
+              {
+                role: "user",
+                content: `Create a beauty routine using the following products: ${selectedProducts
+                  .map((product) => product.name)
+                  .join(", ")}`,
+              },
+            ],
+          }),
+        }
+      );
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (error) {
+      console.error("Error fetching routine:", error);
+      return "Sorry, there was an error generating your routine. Please try again later.";
+    }
+  }
+
+  // Event listener for Generate Routine button
+  generateRoutineButton.addEventListener("click", async () => {
+    const selectedItems =
+      selectedProductsList.querySelectorAll(".selected-item");
+
+    if (selectedItems.length === 0) {
+      chatWindow.innerHTML =
+        "<p>Please select some products to generate a routine.</p>";
+      return;
+    }
+
+    // Collect selected products
+    const selectedProducts = Array.from(selectedItems).map((item) => {
+      return {
+        id: item.getAttribute("data-id"),
+        name: item.querySelector("p").textContent,
+      };
+    });
+
+    // Show loading message
+    chatWindow.innerHTML = "<p>Generating your routine...</p>";
+
+    // Fetch routine and display it
+    const routine = await fetchRoutine(selectedProducts);
+
+    // Use marked to convert markdown to HTML
+    chatWindow.innerHTML = `<div class="chat-message assistant-message">${marked.parse(
+      routine
+    )}</div>`;
   });
 });

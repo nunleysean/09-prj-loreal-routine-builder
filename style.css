@@ -5,10 +5,12 @@
   padding: 0;
 }
 
-/* —— body + fonts —— */
+/* General styling for L'Oréal aesthetics */
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  background-color: #fff;
+  color: #000;
+  font-family: "Montserrat", Arial, sans-serif;
+  line-height: 1.6;
   display: flex;
   justify-content: center;
 }
@@ -18,25 +20,26 @@ body {
   max-width: 900px;
 }
 
-/* header */
+/* Header styling */
 .site-header {
   text-align: center;
-  padding-top: 50px;
-  padding-bottom: 10px;
+  padding: 50px 0;
+  background-color: #000;
+  color: #fff;
 }
 
-.logo {
-  width: 250px;
+.site-header .logo {
+  width: 200px;
   margin-bottom: 15px;
 }
 
 .site-title {
-  font-size: 22px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff003b;
 }
 
-/* category filter */
+/* Category filter styling */
 .search-section {
   margin: 30px 0;
   display: flex;
@@ -46,39 +49,74 @@ body {
   width: 100%;
   padding: 16px;
   font-size: 18px;
-  border: 2px solid #000;
+  border: 2px solid #e3a535;
   border-radius: 8px;
-  cursor: pointer;
-  background-color: white;
+  background-color: #fff;
+  color: #000;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .search-section select:focus {
   outline: none;
-  border-color: #666;
+  border-color: #ff003b;
 }
 
-/* chat section */
+/* Chatbox styling */
 .chatbox {
   margin: 40px 0;
   border: 2px solid #000;
   border-radius: 8px;
-  padding: 26px;
+  padding: 20px;
+  background-color: #fff;
 }
 
 .chatbox h2 {
   font-size: 20px;
-  margin-bottom: 20px;
+  color: #ff003b;
+  margin-bottom: 15px;
 }
 
+/* Chat window flexbox for alignment */
 .chat-window {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
   font-size: 18px;
   line-height: 1.5;
   height: 250px;
   overflow-y: auto;
-  background: #fafafa;
-  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #e3a535;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Chat messages styled like text messages */
+.chat-message {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* User messages aligned to the right */
+.user-message {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  align-self: flex-end;
+  text-align: right;
+}
+
+/* Assistant messages aligned to the left */
+.assistant-message {
+  background-color: #f8d7da;
+  color: #842029;
+  align-self: flex-start;
+  text-align: left;
 }
 
 /* placeholder message */
@@ -99,40 +137,30 @@ body {
 
 .chat-form input {
   flex: 1;
-  padding: 12px;
-  font-size: 18px;
-  border: none;
-  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #e3a535;
+  border-radius: 8px;
   background: transparent;
 }
 
 .chat-form input:focus {
   outline: none;
-  border-bottom-color: #000;
 }
 
 .chat-form button {
-  font-size: 18px;
-  background: #000;
+  font-size: 16px;
+  background-color: #ff003b;
   color: #fff;
   border: none;
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 .chat-form button:hover {
-  background: #666666;
-}
-
-.chat-form button:focus {
-  outline: 2px solid #000;
-  outline-offset: 2px;
+  background-color: #e3a535;
 }
 
 /* visually hidden */
@@ -148,12 +176,12 @@ body {
   border: 0;
 }
 
-/* footer */
+/* Footer styling */
 .site-footer {
-  margin: 60px 0 40px;
   text-align: center;
-  font-size: 14px;
-  color: #666;
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
 }
 
 .site-footer nav {
@@ -161,16 +189,16 @@ body {
 }
 
 .site-footer a {
-  margin: 0 8px;
-  color: #000;
+  margin: 0 10px;
+  color: #e3a535;
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #ff003b;
 }
 
-/* products grid */
+/* Products grid styling */
 .products-grid {
   display: flex;
   flex-wrap: wrap;
@@ -180,20 +208,22 @@ body {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 1px solid #ccc;
+  border: 1px solid #e3a535;
   padding: 15px;
-  border-radius: 4px;
+  border-radius: 8px;
+  background-color: #fff;
   display: flex;
   gap: 15px;
   min-height: 160px;
+  transition: transform 0.3s, border 0.3s;
 }
 
 .product-card img {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   flex-shrink: 0;
-  transition: transform 0.3s, border 0.3s;
+  margin-bottom: 10px;
 }
 
 .product-card .product-info {
@@ -206,12 +236,18 @@ body {
 
 .product-card h3 {
   font-size: 16px;
-  margin-bottom: 8px;
+  color: #ff003b;
+  margin-bottom: 5px;
 }
 
 .product-card p {
   font-size: 14px;
-  color: #666;
+  color: #000;
+}
+
+.product-card:hover {
+  border-color: #ff003b;
+  transform: scale(1.05);
 }
 
 /* Highlight selected product */
@@ -221,17 +257,19 @@ body {
   transition: transform 0.3s, border 0.3s;
 }
 
-/* selected products */
+/* Selected products styling */
 .selected-products {
   margin: 40px 0;
   padding: 20px;
-  border: 2px solid #000;
+  border: 2px solid #e3a535;
   border-radius: 8px;
+  background-color: #fff;
 }
 
 .selected-products h2 {
   font-size: 20px;
-  margin-bottom: 20px;
+  color: #ff003b;
+  margin-bottom: 15px;
 }
 
 #selectedProductsList {
@@ -267,19 +305,19 @@ body {
 .generate-btn {
   width: 100%;
   margin-top: 20px;
-  padding: 16px;
+  padding: 12px 20px;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
-  background: #000;
+  background-color: #ff003b;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 .generate-btn:hover {
-  background: #666;
+  background-color: #e3a535;
 }
 
 .generate-btn i {
